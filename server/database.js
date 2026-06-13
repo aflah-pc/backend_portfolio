@@ -9,7 +9,11 @@ dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const dbPath = path.join(__dirname, 'database.sqlite');
+
+// Vercel serverless environment has a read-only filesystem except for /tmp
+const dbPath = process.env.VERCEL
+  ? path.join('/tmp', 'database.sqlite')
+  : path.join(__dirname, 'database.sqlite');
 
 let db = null;
 
