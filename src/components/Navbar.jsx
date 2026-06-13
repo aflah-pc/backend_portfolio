@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-scroll';
 import { FaBars, FaTimes, FaSun, FaMoon } from 'react-icons/fa';
-import { personalInfo } from '../data/portfolioData';
+import { usePortfolioData } from '../context/PortfolioDataContext';
 import { useTheme } from '../context/ThemeContext';
 import resumePdf from '../assets/74e2556158bc9328aa0e5153f22a5298080b390cd75b39f7559c16a5a86f0978 (1).pdf';
 
 const Navbar = () => {
+  const { personalInfo } = usePortfolioData();
   const [nav, setNav] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { theme, toggleTheme } = useTheme();

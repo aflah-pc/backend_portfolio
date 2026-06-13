@@ -1,9 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
-import { projectsData } from '../data/portfolioData';
+import { usePortfolioData } from '../context/PortfolioDataContext';
 
 const Projects = () => {
+  const { projectsData } = usePortfolioData();
   return (
     <section id="projects" className="py-20">
       <motion.div
@@ -48,7 +49,10 @@ const Projects = () => {
                 
                 {/* Tech Stack */}
                 <div className="flex flex-wrap gap-2 mb-6">
-                  {project.technologies.map((tech, tIndex) => (
+                  {(typeof project.technologies === 'string'
+                    ? project.technologies.split(',').map(t => t.trim())
+                    : (project.technologies || [])
+                  ).map((tech, tIndex) => (
                     <span 
                       key={tIndex} 
                       className="px-3 py-1 text-xs font-medium text-brand-purple bg-brand-purple/10 border border-brand-purple/20 rounded-full"

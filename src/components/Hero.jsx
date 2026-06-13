@@ -1,10 +1,14 @@
 import React from 'react';
 import { Typewriter } from 'react-simple-typewriter';
 import { motion } from 'framer-motion';
-import { personalInfo } from '../data/portfolioData';
+import { usePortfolioData } from '../context/PortfolioDataContext';
 import resumePdf from '../assets/74e2556158bc9328aa0e5153f22a5298080b390cd75b39f7559c16a5a86f0978 (1).pdf';
 
 const Hero = () => {
+  const { personalInfo } = usePortfolioData();
+  const roleWords = personalInfo.role 
+    ? personalInfo.role.split('|').map(w => w.trim()) 
+    : ['Cyber Security Student', 'Security Research Enthusiast', 'Ethical Hacking Learner'];
   return (
     <section id="home" className="min-h-screen flex items-center justify-center pt-20">
       <div className="text-center z-10 w-full">
@@ -22,12 +26,7 @@ const Hero = () => {
           
           <div className="text-xl md:text-2xl text-gray-300 mb-8 h-16">
             <Typewriter
-              words={[
-                'Cyber Security Student',
-                'Security Research Enthusiast',
-                'Ethical Hacking Learner',
-                'Network Defender'
-              ]}
+              words={roleWords}
               loop={true}
               cursor
               cursorStyle="_"

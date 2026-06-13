@@ -1,9 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaGraduationCap } from 'react-icons/fa';
-import { educationData } from '../data/portfolioData';
+import { usePortfolioData } from '../context/PortfolioDataContext';
 
 const Education = () => {
+  const { educationData } = usePortfolioData();
   return (
     <section id="education" className="py-20">
       <motion.div

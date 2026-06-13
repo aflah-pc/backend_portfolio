@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -10,6 +11,7 @@ import Achievements from './components/Achievements';
 import Resume from './components/Resume';
 import Contact from './components/Contact';
 import Loader from './components/Loader';
+import AdminDashboard from './components/AdminDashboard';
 
 function App() {
   const [fadeOut, setFadeOut] = useState(false);
@@ -27,20 +29,25 @@ function App() {
   }, []);
 
   return (
-    <>
-      {showLoader && <Loader fadeOut={fadeOut} />}
-      <MainLayout>
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Certifications />
-        <Education />
-        <Achievements />
-        <Resume />
-        <Contact />
-      </MainLayout>
-    </>
+    <Routes>
+      <Route path="/" element={
+        <>
+          {showLoader && <Loader fadeOut={fadeOut} />}
+          <MainLayout>
+            <Hero />
+            <About />
+            <Skills />
+            <Projects />
+            <Certifications />
+            <Education />
+            <Achievements />
+            <Resume />
+            <Contact />
+          </MainLayout>
+        </>
+      } />
+      <Route path="/admin" element={<AdminDashboard />} />
+    </Routes>
   );
 }
 

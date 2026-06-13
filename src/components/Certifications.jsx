@@ -1,9 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaAward, FaExternalLinkAlt } from 'react-icons/fa';
-import { certificationsData } from '../data/portfolioData';
+import { usePortfolioData } from '../context/PortfolioDataContext';
 
 const Certifications = () => {
+  const { certificationsData } = usePortfolioData();
   return (
     <section id="certifications" className="py-20 relative">
       <motion.div

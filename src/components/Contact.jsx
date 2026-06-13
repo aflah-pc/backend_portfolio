@@ -1,9 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane, FaSpinner } from 'react-icons/fa';
-import { personalInfo } from '../data/portfolioData';
+import { usePortfolioData } from '../context/PortfolioDataContext';
 
 const Contact = () => {
+  const { personalInfo } = usePortfolioData();
   const formRef = useRef();
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
   const [loading, setLoading] = useState(false);
@@ -14,15 +15,28 @@ const Contact = () => {
     setForm({ ...form, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const phoneNumber = "916282966549";
+      // 1. Submit message to backend SQLite DB
+      const res = await fetch('/api/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form)
+      });
+      const data = await res.json();
+      if (!res.ok || data.status !== 'success') {
+        throw new Error(data.message || 'API error');
+      }
+
+      // 2. Fallback WhatsApp messaging channel
+      const rawPhone = personalInfo.phone || "+916282966549";
+      const cleanPhone = rawPhone.replace(/[^0-9]/g, '');
       const text = `Hello Aflah,\n\n*Name:* ${form.name}\n*Email:* ${form.email}\n*Subject:* ${form.subject}\n\n*Message:*\n${form.message}`;
       const encodedText = encodeURIComponent(text);
-      const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedText}`;
+      const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodedText}`;
       
       window.open(whatsappUrl, '_blank');
       

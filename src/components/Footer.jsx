@@ -1,8 +1,9 @@
 import React from 'react';
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
-import { personalInfo } from '../data/portfolioData';
+import { usePortfolioData } from '../context/PortfolioDataContext';
 
 const Footer = () => {
+  const { personalInfo } = usePortfolioData();
   const currentYear = new Date().getFullYear();
 
   return (

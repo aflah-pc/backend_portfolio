@@ -1,9 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { personalInfo } from '../data/portfolioData';
+import { usePortfolioData } from '../context/PortfolioDataContext';
 import profileImg from '../assets/Screenshot 2026-06-08 230721.png';
 
 const About = () => {
+  const { personalInfo } = usePortfolioData();
   return (
     <section id="about" className="py-20">
       <motion.div

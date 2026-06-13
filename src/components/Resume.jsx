@@ -1,9 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaDownload, FaFileAlt } from 'react-icons/fa';
+import { usePortfolioData } from '../context/PortfolioDataContext';
 import resumePdf from '../assets/74e2556158bc9328aa0e5153f22a5298080b390cd75b39f7559c16a5a86f0978 (1).pdf';
 
 const Resume = () => {
+  const { personalInfo } = usePortfolioData();
+  const titleRole = personalInfo.role ? personalInfo.role.split('|')[0].trim() : 'Cyber Security Specialist';
   return (
     <section id="resume" className="py-20 relative">
       <motion.div
@@ -31,8 +34,8 @@ const Resume = () => {
               <FaFileAlt className="text-4xl text-brand-cyan" />
             </div>
             
-            <h3 className="text-2xl font-bold text-white mb-2">Aflah Muneer PC</h3>
-            <p className="text-brand-purple font-medium mb-8">Cyber Security Specialist</p>
+            <h3 className="text-2xl font-bold text-white mb-2">{personalInfo.name}</h3>
+            <p className="text-brand-purple font-medium mb-8">{titleRole}</p>
             
             <motion.a
               href={resumePdf}

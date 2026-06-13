@@ -1,8 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { achievementsData } from '../data/portfolioData';
+import { usePortfolioData } from '../context/PortfolioDataContext';
 
 const Achievements = () => {
+  const { achievementsData } = usePortfolioData();
   return (
     <section id="achievements" className="py-20">
       <motion.div
