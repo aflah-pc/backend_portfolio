@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-walnut: #4a3525;
+  --color-brand-walnut-dark: #2b1d12;
+  --color-brand-walnut-light: #6e533f;
+  --color-brand-beige: #d5c3a6;
+  --color-brand-beige-light: #f4efeb;
+  --color-brand-cream: #faf7f2;
+  --color-brand-accent: #b08e66;
+  --color-brand-gold: #c19a6b;
+  --color-brand-gold-light: #d4af37;
+}
+
+:root {
+  --background: #faf7f2;
+  --foreground: #2b1d12;
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --card-border: rgba(74, 53, 37, 0.1);
+  --glass-bg: rgba(250, 247, 242, 0.75);
+  --glass-border: rgba(176, 142, 102, 0.2);
+}
+
+.dark {
+  --background: #120e0b;
+  --foreground: #f4efeb;
+  --card-bg: rgba(27, 21, 17, 0.7);
+  --card-border: rgba(213, 195, 166, 0.1);
+  --glass-bg: rgba(18, 14, 11, 0.85);
+  --glass-border: rgba(176, 142, 102, 0.15);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+}
+
+/* Luxury Card & Glassmorphism Utilities */
+.glass-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(12px);
+  border-radius: 1rem;
+}
+
+.glass-nav {
+  background-color: var(--glass-bg);
+  border-bottom: 1px solid var(--glass-border);
+  backdrop-filter: blur(16px);
+}
+
+.gradient-gold {
+  background: linear-gradient(135deg, #b08e66 0%, #d5c3a6 50%, #b08e66 100%);
+}
+
+.gradient-gold-text {
+  background: linear-gradient(135deg, #b08e66 0%, #dfd3c3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: #b08e66;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4a3525;
+}
+
+/* Masonry Grid helper */
+.masonry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 1.5rem;
+  grid-auto-flow: dense;
+}
+
+/* Interactive elements transition */
+button, a, input, select {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
