@@ -93,7 +93,7 @@ const Categories = () => {
                 {/* Content Overlay */}
                 <div className="absolute inset-0 p-8 flex flex-col justify-end text-white z-10">
                   <span className="text-xs text-brand-accent tracking-wider uppercase font-semibold mb-1">
-                    WoodCraft Collection
+                    PC RUBCO & INTERIOR WORKS
                   </span>
                   <h3 className="text-2xl font-serif font-bold mb-2 text-brand-beige-light group-hover:text-white transition-colors">
                     {cat.name}

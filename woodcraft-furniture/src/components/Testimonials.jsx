@@ -23,7 +23,7 @@ const testimonialsList = [
     name: "Elena Rostova",
     role: "Designer",
     rating: 5,
-    quote: "WoodCraft custom modified the Japanese Credenza to fit my media components perfectly. Their customer support team guided me through drawing approvals and cabinet layouts. Simply superb!",
+    quote: "PC RUBCO & INTERIOR WORKS custom modified the Japanese Credenza to fit my media components perfectly. Their customer support team guided me through drawing approvals and cabinet layouts. Simply superb!",
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
   }
 ];

@@ -45,7 +45,7 @@ const Contact = () => {
           <div className="lg:col-span-5 space-y-8">
             <div className="glass-card p-8 border border-brand-accent/15">
               <h3 className="text-xl font-serif font-bold text-brand-walnut dark:text-white mb-6">
-                WoodCraft Showroom
+                PC RUBCO & INTERIOR WORKS Showroom
               </h3>
               
               <div className="space-y-6">
@@ -80,7 +80,7 @@ const Contact = () => {
                   <div>
                     <h4 className="text-xs font-bold font-mono text-gray-500 uppercase tracking-wider mb-1">Email</h4>
                     <p className="text-sm text-brand-walnut dark:text-brand-beige-light font-medium">
-                      showroom@woodcraft.com
+                      showroom@pcrubco.com
                     </p>
                   </div>
                 </div>
@@ -97,7 +97,7 @@ const Contact = () => {
                 allowFullScreen="" 
                 loading="lazy" 
                 referrerPolicy="no-referrer-when-downgrade"
-                title="WoodCraft Showroom Location Map"
+                title="PC RUBCO Showroom Location Map"
                 className="grayscale dark:invert opacity-85 group-hover:opacity-100 transition-opacity"
               />
             </div>

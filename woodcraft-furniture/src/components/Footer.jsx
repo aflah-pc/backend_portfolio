@@ -27,8 +27,8 @@ const Footer = () => {
           
           {/* Col 1: About Brand */}
           <div className="space-y-6">
-            <h3 className="text-2xl font-serif font-black tracking-wide text-white">
-              WoodCraft<span className="text-brand-accent">.</span>
+            <h3 className="text-lg font-serif font-black tracking-wide text-white uppercase">
+              PC RUBCO & <span className="text-brand-accent">INTERIOR WORKS</span>
             </h3>
             <p className="text-xs sm:text-sm text-brand-beige/75 leading-relaxed font-light">
               Premium handcrafted wooden furniture designed to elevate modern living. Combining generational carpentry skills with timeless architectural layouts.
@@ -93,7 +93,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-2">
                 <Mail size={16} className="text-brand-accent flex-shrink-0" />
-                <span>showroom@woodcraft.com</span>
+                <span>showroom@pcrubco.com</span>
               </li>
             </ul>
           </div>
@@ -135,7 +135,7 @@ const Footer = () => {
 
         {/* Divider & Copyright */}
         <div className="border-t border-brand-accent/20 pt-8 mt-12 flex flex-col md:flex-row justify-between items-center text-xs text-brand-beige/65 gap-4">
-          <span>&copy; {new Date().getFullYear()} WoodCraft Showrooms. All rights reserved.</span>
+          <span>&copy; {new Date().getFullYear()} PC RUBCO AND INTERIOR WORKS. All rights reserved.</span>
           <div className="flex space-x-6">
             <a href="#" className="hover:text-brand-accent transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-brand-accent transition-colors">Terms of Service</a>

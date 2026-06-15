@@ -70,8 +70,8 @@ export default function Home() {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="space-y-4"
             >
-              <h1 className="text-4xl sm:text-5xl font-serif font-black tracking-wide text-brand-beige">
-                WoodCraft<span className="text-brand-accent">.</span>
+              <h1 className="text-2xl sm:text-3xl font-serif font-black tracking-wide text-brand-beige uppercase">
+                PC RUBCO & <span className="text-brand-accent">INTERIOR WORKS</span>
               </h1>
               <div className="w-16 h-[2px] bg-brand-accent mx-auto relative overflow-hidden">
                 <motion.div 

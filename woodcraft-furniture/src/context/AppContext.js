@@ -143,7 +143,7 @@ export const AppProvider = ({ children }) => {
 
   // Initialize from LocalStorage
   useEffect(() => {
-    const savedTheme = localStorage.getItem('woodcraft_theme');
+    const savedTheme = localStorage.getItem('pcrubco_theme');
     if (savedTheme === 'dark') {
       setDarkMode(true);
       document.documentElement.classList.add('dark');
@@ -152,10 +152,10 @@ export const AppProvider = ({ children }) => {
       document.documentElement.classList.remove('dark');
     }
 
-    const savedCart = localStorage.getItem('woodcraft_cart');
+    const savedCart = localStorage.getItem('pcrubco_cart');
     if (savedCart) setCart(JSON.parse(savedCart));
 
-    const savedWishlist = localStorage.getItem('woodcraft_wishlist');
+    const savedWishlist = localStorage.getItem('pcrubco_wishlist');
     if (savedWishlist) setWishlist(JSON.parse(savedWishlist));
   }, []);
 
@@ -165,10 +165,10 @@ export const AppProvider = ({ children }) => {
     setDarkMode(nextDark);
     if (nextDark) {
       document.documentElement.classList.add('dark');
-      localStorage.setItem('woodcraft_theme', 'dark');
+      localStorage.setItem('pcrubco_theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
-      localStorage.setItem('woodcraft_theme', 'light');
+      localStorage.setItem('pcrubco_theme', 'light');
     }
   };
 
@@ -184,7 +184,7 @@ export const AppProvider = ({ children }) => {
       } else {
         updated = [...prev, { ...product, quantity }];
       }
-      localStorage.setItem('woodcraft_cart', JSON.stringify(updated));
+      localStorage.setItem('pcrubco_cart', JSON.stringify(updated));
       return updated;
     });
   };
@@ -192,7 +192,7 @@ export const AppProvider = ({ children }) => {
   const removeFromCart = (productId) => {
     setCart((prev) => {
       const updated = prev.filter(item => item.id !== productId);
-      localStorage.setItem('woodcraft_cart', JSON.stringify(updated));
+      localStorage.setItem('pcrubco_cart', JSON.stringify(updated));
       return updated;
     });
   };
@@ -206,7 +206,7 @@ export const AppProvider = ({ children }) => {
       const updated = prev.map(item =>
         item.id === productId ? { ...item, quantity: count } : item
       );
-      localStorage.setItem('woodcraft_cart', JSON.stringify(updated));
+      localStorage.setItem('pcrubco_cart', JSON.stringify(updated));
       return updated;
     });
   };
@@ -217,7 +217,7 @@ export const AppProvider = ({ children }) => {
       const updated = prev.includes(productId)
         ? prev.filter(id => id !== productId)
         : [...prev, productId];
-      localStorage.setItem('woodcraft_wishlist', JSON.stringify(updated));
+      localStorage.setItem('pcrubco_wishlist', JSON.stringify(updated));
       return updated;
     });
   };

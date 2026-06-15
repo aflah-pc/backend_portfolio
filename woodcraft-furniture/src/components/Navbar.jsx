@@ -49,10 +49,10 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link to="home" smooth={true} duration={500} className="cursor-pointer">
-              <h1 className="text-2xl font-serif font-black tracking-wide text-brand-walnut dark:text-brand-beige">
-                WoodCraft<span className="text-brand-accent">.</span>
+              <h1 className="text-sm sm:text-base md:text-lg font-serif font-black tracking-wide text-brand-walnut dark:text-brand-beige uppercase">
+                PC RUBCO & <span className="text-brand-accent">INTERIOR WORKS</span>
               </h1>
-              <p className="text-[10px] tracking-[0.2em] uppercase text-brand-accent dark:text-brand-beige-light">Showroom</p>
+              <p className="text-[9px] tracking-[0.15em] uppercase text-brand-accent dark:text-brand-beige-light">PREMIUM DESIGN SHOWROOM</p>
             </Link>
           </div>
 

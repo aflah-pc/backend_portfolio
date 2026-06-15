@@ -54,7 +54,7 @@ const WhyChooseUs = () => {
             Our Commitment
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-brand-walnut dark:text-brand-beige">
-            Why Choose WoodCraft?
+            Why Choose PC RUBCO & INTERIOR WORKS?
           </h2>
           <div className="w-24 h-1 bg-brand-accent mx-auto mt-4 rounded-full" />
         </div>

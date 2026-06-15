@@ -15,9 +15,9 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "WoodCraft Furniture | Premium Modern Wooden Furniture",
-  description: "Transform your home with WoodCraft. Discover luxury handcrafted sofas, dining sets, office desks, beds, and home décor made from solid oak and walnut.",
-  keywords: "furniture, luxury furniture, sofa, dining table, oak wood, walnut wood, custom furniture, home decor, woodcraft",
+  title: "PC RUBCO AND INTERIOR WORKS | Premium Modern Wooden Furniture",
+  description: "Transform your home with PC RUBCO AND INTERIOR WORKS. Discover luxury handcrafted sofas, dining sets, office desks, beds, and home décor made from solid oak and walnut.",
+  keywords: "furniture, luxury furniture, sofa, dining table, oak wood, walnut wood, custom furniture, home decor, rubco, pcrubco, interior works",
 };
 
 export default function RootLayout({ children }) {
