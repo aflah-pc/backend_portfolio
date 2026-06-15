@@ -1,6 +1,11 @@
 import React from 'react';
 import secureLoginImg from '../assets/secure_login.png';
 import passwordAnalyzerImg from '../assets/password_analyzer.png';
+import networkVulnerabilityScannerImg from '../assets/network_vulnerability_scanner.jpg';
+import cyberThreatDetectionImg from '../assets/cyber_threat_detection.jpg';
+import securityMonitoringImg from '../assets/security_monitoring.jpg';
+import digitalForensicsImg from '../assets/digital_forensics.jpg';
+import resumePdf from '../assets/74e2556158bc9328aa0e5153f22a5298080b390cd75b39f7559c16a5a86f0978 (1).pdf';
 import { 
   FaShieldAlt, 
   FaNetworkWired, 
@@ -33,6 +38,7 @@ export const personalInfo = {
   linkedin: "https://www.linkedin.com/in/aflah-muneer-p-c-53aa51349",
   github: "https://github.com/placeholder",
   instagram: "https://instagram.com/aflah__pc",
+  resumeUrl: resumePdf,
   mission: "Passionate Cyber Security student focused on ethical hacking, network security, and digital forensics. Dedicated to continuous learning and developing innovative solutions to protect digital assets against emerging cyber threats."
 };
 
@@ -90,7 +96,7 @@ export const projectsData = [
     title: "Network Vulnerability Scanner",
     description: "A comprehensive tool to scan internal networks for known vulnerabilities, misconfigurations, and outdated software.",
     technologies: ["Python", "Nmap", "Bash"],
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: networkVulnerabilityScannerImg,
     github: "#",
     liveDemo: "#"
   },
@@ -108,7 +114,7 @@ export const projectsData = [
     title: "Cyber Threat Detection Dashboard",
     description: "A real-time dashboard visualizing network traffic anomalies using machine learning algorithms for threat detection.",
     technologies: ["Python", "React", "D3.js", "Scikit-Learn"],
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: cyberThreatDetectionImg,
     github: "#",
     liveDemo: "#"
   },
@@ -126,7 +132,7 @@ export const projectsData = [
     title: "Security Monitoring Tool",
     description: "Custom SIEM solution designed for small networks to monitor logs, aggregate data, and trigger alerts on suspicious activities.",
     technologies: ["Python", "Elasticsearch", "Kibana"],
-    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: securityMonitoringImg,
     github: "#",
     liveDemo: "#"
   },
@@ -135,7 +141,7 @@ export const projectsData = [
     title: "Digital Forensics Investigation Platform",
     description: "Platform for safely acquiring, analyzing, and reporting digital evidence from compromised machines in isolated environments.",
     technologies: ["C", "Bash", "Linux Forensics Tools"],
-    image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: digitalForensicsImg,
     github: "#",
     liveDemo: "#"
   }

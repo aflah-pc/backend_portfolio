@@ -84,7 +84,13 @@ export const PortfolioDataProvider = ({ children }) => {
         const { personalInfo: apiInfo, skills, projects, certifications, education, achievements } = json.data;
 
         // 1. Process personalInfo (ensure we merge default/static ones in case some keys are missing)
-        setPersonalInfo({ ...staticPersonalInfo, ...apiInfo });
+        const processedPersonalInfo = { ...staticPersonalInfo, ...apiInfo };
+        if (apiInfo.resumeUrl) {
+          processedPersonalInfo.resumeUrl = apiInfo.resumeUrl.startsWith('http') || apiInfo.resumeUrl.startsWith('/') || apiInfo.resumeUrl.startsWith('data:')
+            ? apiInfo.resumeUrl
+            : new URL(`../assets/${apiInfo.resumeUrl}`, import.meta.url).href;
+        }
+        setPersonalInfo(processedPersonalInfo);
 
         // 2. Process skills: Group by category and resolve icons
         const groupedSkills = {};

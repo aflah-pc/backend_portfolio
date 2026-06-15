@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FaDownload, FaFileAlt } from 'react-icons/fa';
 import { usePortfolioData } from '../context/PortfolioDataContext';
-import resumePdf from '../assets/74e2556158bc9328aa0e5153f22a5298080b390cd75b39f7559c16a5a86f0978 (1).pdf';
 
 const Resume = () => {
   const { personalInfo } = usePortfolioData();
@@ -38,7 +37,7 @@ const Resume = () => {
             <p className="text-brand-purple font-medium mb-8">{titleRole}</p>
             
             <motion.a
-              href={resumePdf}
+              href={personalInfo.resumeUrl || '#'}
               download="Aflah_Muneer_Resume.pdf"
               target="_blank"
               className="btn-primary flex items-center gap-2"

@@ -613,6 +613,17 @@ const AdminDashboard = () => {
                 </div>
 
                 <div>
+                  <label className="block text-sm text-gray-400 font-mono mb-2">Resume PDF Link or Filename</label>
+                  <input 
+                    type="text" 
+                    className="w-full bg-dark-bg border border-dark-border rounded px-4 py-2.5 text-white focus:outline-none focus:border-brand-cyan"
+                    value={profileForm.resumeUrl || ''} 
+                    onChange={e => setProfileForm({ ...profileForm, resumeUrl: e.target.value })}
+                    placeholder="e.g. 74e2556158bc9328aa0e5153f22a5298080b390cd75b39f7559c16a5a86f0978 (1).pdf or an external https link"
+                  />
+                </div>
+
+                <div>
                   <label className="block text-sm text-gray-400 font-mono mb-2">Mission Statement (About Section)</label>
                   <textarea 
                     rows={4}

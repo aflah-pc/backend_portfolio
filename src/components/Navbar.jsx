@@ -3,7 +3,6 @@ import { Link } from 'react-scroll';
 import { FaBars, FaTimes, FaSun, FaMoon } from 'react-icons/fa';
 import { usePortfolioData } from '../context/PortfolioDataContext';
 import { useTheme } from '../context/ThemeContext';
-import resumePdf from '../assets/74e2556158bc9328aa0e5153f22a5298080b390cd75b39f7559c16a5a86f0978 (1).pdf';
 
 const Navbar = () => {
   const { personalInfo } = usePortfolioData();
@@ -58,7 +57,7 @@ const Navbar = () => {
           >
             {theme === 'dark' ? <FaSun size={20} /> : <FaMoon size={20} />}
           </button>
-          <a href={resumePdf} download="Aflah_Muneer_Resume.pdf" target="_blank" rel="noreferrer" className="btn-secondary px-4 py-2 text-sm">
+          <a href={personalInfo.resumeUrl || '#'} download="Aflah_Muneer_Resume.pdf" target="_blank" rel="noreferrer" className="btn-secondary px-4 py-2 text-sm">
             Resume
           </a>
         </div>
