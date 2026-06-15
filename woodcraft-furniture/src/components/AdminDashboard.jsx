@@ -18,6 +18,37 @@ const AdminDashboard = ({ isOpen, onClose, isPage = false }) => {
   const [activeTab, setActiveTab] = useState('products'); // 'products', 'orders', 'inquiries'
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
+
+  // Authentication State
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
+
+  useEffect(() => {
+    const authStatus = sessionStorage.getItem('pcrubco_admin_auth');
+    if (authStatus === 'true') {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (username === 'admin' && password === 'admin123') {
+      setIsAuthenticated(true);
+      sessionStorage.setItem('pcrubco_admin_auth', 'true');
+      setLoginError('');
+    } else {
+      setLoginError('Invalid administrative credentials. Please try again.');
+    }
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    sessionStorage.removeItem('pcrubco_admin_auth');
+    setUsername('');
+    setPassword('');
+  };
   
   // Form State
   const [formData, setFormData] = useState({
@@ -34,14 +65,14 @@ const AdminDashboard = ({ isOpen, onClose, isPage = false }) => {
 
   const categories = ["Sofas", "Beds", "Dining Sets", "Office Furniture", "Chairs", "Storage", "Outdoor Furniture"];
 
-  // Fetch orders and inquiries only when Admin Dashboard is opened
+  // Fetch orders and inquiries only when Admin Dashboard is opened and authenticated
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && isAuthenticated) {
       fetchProducts();
       fetchOrders();
       fetchInquiries();
     }
-  }, [isOpen]);
+  }, [isOpen, isAuthenticated]);
 
   const handleOpenCreateForm = () => {
     setEditingProduct(null);
@@ -130,20 +161,32 @@ const AdminDashboard = ({ isOpen, onClose, isPage = false }) => {
             </h2>
             <p className="text-[10px] tracking-widest text-brand-beige/75 uppercase">Showroom Inventory, Checkout Orders & Consultation Logs</p>
           </div>
-          {isPage ? (
-            <a href="/" className="px-4 py-2 bg-brand-accent hover:opacity-90 text-brand-walnut-dark font-bold text-xs rounded-xl transition-all">
-              Return to Showroom
-            </a>
-          ) : (
-            <button 
-              onClick={onClose}
-              className="p-2 rounded-full hover:bg-white/10 text-brand-beige"
-            >
-              <X size={20} />
-            </button>
-          )}
+          <div className="flex items-center gap-4">
+            {isAuthenticated && (
+              <button 
+                onClick={handleLogout}
+                className="px-3 py-1.5 border border-brand-accent/30 hover:border-brand-accent text-brand-beige text-xs rounded-lg transition-all cursor-pointer"
+              >
+                Logout
+              </button>
+            )}
+            {isPage ? (
+              <a href="/" className="px-4 py-2 bg-brand-accent hover:opacity-90 text-brand-walnut-dark font-bold text-xs rounded-xl transition-all">
+                Return to Showroom
+              </a>
+            ) : (
+              <button 
+                onClick={onClose}
+                className="p-2 rounded-full hover:bg-white/10 text-brand-beige cursor-pointer"
+              >
+                <X size={20} />
+              </button>
+            )}
+          </div>
         </div>
 
+      {isAuthenticated ? (
+        <>
           {/* Sub Navigation Tabs */}
           <div className="flex bg-white/40 dark:bg-black/20 border-b border-brand-accent/10 px-6 py-2 gap-4">
             <button
@@ -334,6 +377,55 @@ const AdminDashboard = ({ isOpen, onClose, isPage = false }) => {
             )}
 
           </div>
+        </>
+      ) : (
+        <div className="flex-grow flex items-center justify-center p-8 bg-brand-cream/50 dark:bg-brand-walnut-dark/50">
+          <div className="w-full max-w-md bg-white dark:bg-brand-walnut-dark/80 p-8 rounded-3xl border border-brand-accent/25 shadow-xl space-y-6">
+            <div className="text-center space-y-2">
+              <h3 className="text-xl font-serif font-bold text-brand-walnut dark:text-brand-beige font-serif">Admin Authentication</h3>
+              <p className="text-xs text-gray-400">Please authenticate to access controls.</p>
+            </div>
+
+            <form onSubmit={handleLogin} className="space-y-4 text-xs sm:text-sm">
+              <div>
+                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5 font-mono">Username</label>
+                <input 
+                  type="text" required
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="w-full bg-brand-cream/40 dark:bg-brand-walnut-dark/40 border border-brand-accent/15 focus:border-brand-accent rounded-xl p-3 text-brand-walnut dark:text-white focus:outline-none"
+                  placeholder="admin"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5 font-mono">Password</label>
+                <input 
+                  type="password" required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full bg-brand-cream/40 dark:bg-brand-walnut-dark/40 border border-brand-accent/15 focus:border-brand-accent rounded-xl p-3 text-brand-walnut dark:text-white focus:outline-none"
+                  placeholder="••••••••"
+                />
+              </div>
+
+              {loginError && (
+                <p className="text-xs text-red-500 font-semibold text-center">{loginError}</p>
+              )}
+
+              <button 
+                type="submit"
+                className="w-full bg-brand-walnut dark:bg-brand-accent text-white dark:text-brand-walnut-dark py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 shadow-md cursor-pointer mt-2"
+              >
+                Authenticate Admin
+              </button>
+            </form>
+
+            <div className="text-center text-[10px] text-gray-400 border-t border-brand-accent/10 pt-4">
+              Default credentials: <span className="font-mono text-brand-accent font-bold">admin / admin123</span>
+            </div>
+          </div>
+        </div>
+      )}
       </div>
 
       {/* Slide Form Panel Overlay */}
