@@ -5,22 +5,27 @@ import { motion } from 'framer-motion';
 import { 
   Phone, Mail, MapPin, Send, CheckCircle2 
 } from 'lucide-react';
+import { useApp } from '@/context/AppContext';
 
 const Contact = () => {
+  const { submitInquiry } = useApp();
   const [formState, setFormState] = useState({ name: '', email: '', subject: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      await submitInquiry(formState);
       setSubmitting(false);
       setSubmitted(true);
       setFormState({ name: '', email: '', subject: '', message: '' });
       setTimeout(() => setSubmitted(false), 6000);
-    }, 1500);
+    } catch (err) {
+      console.error(err);
+      setSubmitting(false);
+    }
   };
 
   return (

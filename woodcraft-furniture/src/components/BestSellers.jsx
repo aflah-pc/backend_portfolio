@@ -1,16 +1,16 @@
 "use client";
 
 import React, { useState } from 'react';
-import { useApp, productsData } from '@/context/AppContext';
+import { useApp } from '@/context/AppContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Star, ShoppingBag, Eye, Heart, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const BestSellers = () => {
-  const { addToCart, wishlist, toggleWishlist, setQuickViewProduct } = useApp();
+  const { addToCart, wishlist, toggleWishlist, setQuickViewProduct, products } = useApp();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // Filter products for trending/best sellers
-  const bestSellers = productsData.filter(p => 
+  const bestSellers = products.filter(p => 
     p.badge === "Best Seller" || p.badge === "Trending" || p.badge === "Exclusive"
   );
 

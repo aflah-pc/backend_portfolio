@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState } from 'react';
-import { useApp, productsData } from '@/context/AppContext';
+import { useApp } from '@/context/AppContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  ShoppingBag, Heart, Search, Sun, Moon, Menu, X, Plus, Minus, Trash2, ArrowRight 
+  ShoppingBag, Heart, Search, Sun, Moon, Menu, X, Plus, Minus, Trash2, ArrowRight, Settings 
 } from 'lucide-react';
 import { Link } from 'react-scroll';
 
@@ -12,7 +12,8 @@ const Navbar = () => {
   const { 
     darkMode, toggleTheme, searchQuery, setSearchQuery, 
     cart, removeFromCart, updateCartQuantity, 
-    wishlist, toggleWishlist, addToCart 
+    wishlist, toggleWishlist, addToCart,
+    products, submitOrder, setIsAdminOpen
   } = useApp();
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -21,6 +22,7 @@ const Navbar = () => {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
 
   // Products lookup helper to get details for wishlist items
+
 
 
   const navLinks = [
@@ -39,7 +41,7 @@ const Navbar = () => {
   const totalBalance = cartSubtotal + shippingFee + estimatedTax;
 
   // Resolve products currently in wishlist
-  const wishlistItems = productsData.filter(p => wishlist.includes(p.id));
+  const wishlistItems = products.filter(p => wishlist.includes(p.id));
 
   return (
     <>
@@ -138,6 +140,16 @@ const Navbar = () => {
                 </span>
               )}
             </button>
+
+            {/* Admin Toggle */}
+            <button 
+              onClick={() => setIsAdminOpen(true)}
+              className="text-brand-walnut dark:text-brand-beige-light hover:text-brand-accent dark:hover:text-brand-accent p-1 cursor-pointer"
+              title="Open Admin Dashboard"
+              aria-label="Open Admin Dashboard"
+            >
+              <Settings size={20} />
+            </button>
           </div>
 
           {/* Mobile Menu Controls */}
@@ -160,6 +172,14 @@ const Navbar = () => {
                   {totalCartItems}
                 </span>
               )}
+            </button>
+            <button 
+              onClick={() => setIsAdminOpen(true)}
+              className="text-brand-walnut dark:text-brand-beige-light hover:text-brand-accent"
+              title="Open Admin Dashboard"
+              aria-label="Open Admin Dashboard Mobile"
+            >
+              <Settings size={20} />
             </button>
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -326,9 +346,35 @@ const Navbar = () => {
                   </div>
 
                   <button 
-                    onClick={() => {
-                      alert(`Thank you for your purchase! Total balance of $${totalBalance} paid securely.`);
-                      setCart([]);
+                    onClick={async () => {
+                      const name = prompt("Enter your Full Name for checkout:");
+                      if (!name) return;
+                      const email = prompt("Enter your Email Address:");
+                      if (!email) return;
+                      const address = prompt("Enter your Shipping Address:");
+                      if (!address) return;
+
+                      const orderItems = cart.map(item => ({
+                        id: item.id,
+                        name: item.name,
+                        price: item.price,
+                        image: item.image,
+                        quantity: item.quantity
+                      }));
+
+                      const payload = {
+                        customer_name: name,
+                        customer_email: email,
+                        address,
+                        items: orderItems,
+                        subtotal: cartSubtotal,
+                        shipping: shippingFee,
+                        tax: estimatedTax,
+                        total: totalBalance
+                      };
+
+                      await submitOrder(payload);
+                      alert(`Thank you for your purchase! Your order total of $${totalBalance} was saved successfully.`);
                       setIsCartOpen(false);
                     }}
                     className="w-full bg-brand-walnut dark:bg-brand-accent text-white dark:text-brand-walnut-dark py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 shadow-lg mt-2 cursor-pointer"

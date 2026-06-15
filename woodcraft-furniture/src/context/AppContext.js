@@ -141,7 +141,140 @@ export const AppProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState([]);
   const [quickViewProduct, setQuickViewProduct] = useState(null);
 
-  // Initialize from LocalStorage
+  // Database & Admin States
+  const [products, setProducts] = useState(productsData); // Default to static list as fallback
+  const [orders, setOrders] = useState([]);
+  const [inquiries, setInquiries] = useState([]);
+  const [isAdminOpen, setIsAdminOpen] = useState(false);
+
+  // 1. Fetch products list from SQLite API
+  const fetchProducts = async () => {
+    try {
+      const res = await fetch('/api/products');
+      if (res.ok) {
+        const data = await res.json();
+        setProducts(data);
+      }
+    } catch (err) {
+      console.error("Failed to load products from API:", err);
+    }
+  };
+
+  // 2. Fetch orders list
+  const fetchOrders = async () => {
+    try {
+      const res = await fetch('/api/orders');
+      if (res.ok) {
+        const data = await res.json();
+        setOrders(data);
+      }
+    } catch (err) {
+      console.error("Failed to load orders:", err);
+    }
+  };
+
+  // 3. Fetch inquiries list
+  const fetchInquiries = async () => {
+    try {
+      const res = await fetch('/api/inquiries');
+      if (res.ok) {
+        const data = await res.json();
+        setInquiries(data);
+      }
+    } catch (err) {
+      console.error("Failed to load inquiries:", err);
+    }
+  };
+
+  // 4. Add new product design
+  const addProduct = async (productData) => {
+    try {
+      const res = await fetch('/api/products', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(productData)
+      });
+      if (res.ok) {
+        const newProd = await res.json();
+        setProducts(prev => [newProd, ...prev]);
+        return newProd;
+      }
+    } catch (err) {
+      console.error("Failed to add product:", err);
+    }
+  };
+
+  // 5. Update product details
+  const updateProduct = async (id, productData) => {
+    try {
+      const res = await fetch(`/api/products/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(productData)
+      });
+      if (res.ok) {
+        const updatedProd = await res.json();
+        setProducts(prev => prev.map(p => p.id === id ? updatedProd : p));
+        return updatedProd;
+      }
+    } catch (err) {
+      console.error("Failed to update product:", err);
+    }
+  };
+
+  // 6. Delete product from showcase
+  const deleteProduct = async (id) => {
+    try {
+      const res = await fetch(`/api/products/${id}`, {
+        method: 'DELETE'
+      });
+      if (res.ok) {
+        setProducts(prev => prev.filter(p => p.id !== id));
+      }
+    } catch (err) {
+      console.error("Failed to delete product:", err);
+    }
+  };
+
+  // 7. Submit custom checkout order
+  const submitOrder = async (orderData) => {
+    try {
+      const res = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(orderData)
+      });
+      if (res.ok) {
+        const newOrder = await res.json();
+        setOrders(prev => [newOrder, ...prev]);
+        setCart([]);
+        localStorage.removeItem('pcrubco_cart');
+        return newOrder;
+      }
+    } catch (err) {
+      console.error("Failed to submit order:", err);
+    }
+  };
+
+  // 8. Submit contact consultation message
+  const submitInquiry = async (inquiryData) => {
+    try {
+      const res = await fetch('/api/inquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(inquiryData)
+      });
+      if (res.ok) {
+        const newInq = await res.json();
+        setInquiries(prev => [newInq, ...prev]);
+        return newInq;
+      }
+    } catch (err) {
+      console.error("Failed to submit inquiry:", err);
+    }
+  };
+
+  // Initialize from LocalStorage and database fetch
   useEffect(() => {
     const savedTheme = localStorage.getItem('pcrubco_theme');
     if (savedTheme === 'dark') {
@@ -157,6 +290,9 @@ export const AppProvider = ({ children }) => {
 
     const savedWishlist = localStorage.getItem('pcrubco_wishlist');
     if (savedWishlist) setWishlist(JSON.parse(savedWishlist));
+
+    // Hydrate catalog from database
+    fetchProducts();
   }, []);
 
   // Update classes when theme changes
@@ -249,7 +385,22 @@ export const AppProvider = ({ children }) => {
       wishlist,
       toggleWishlist,
       quickViewProduct,
-      setQuickViewProduct
+      setQuickViewProduct,
+      isAdminOpen,
+      setIsAdminOpen,
+      
+      // Database states & API operations
+      products,
+      fetchProducts,
+      orders,
+      fetchOrders,
+      inquiries,
+      fetchInquiries,
+      addProduct,
+      updateProduct,
+      deleteProduct,
+      submitOrder,
+      submitInquiry
     }}>
       {children}
     </AppContext.Provider>

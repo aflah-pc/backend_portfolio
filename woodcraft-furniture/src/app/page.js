@@ -17,8 +17,11 @@ import Statistics from '@/components/Statistics';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import QuickViewModal from '@/components/QuickViewModal';
+import AdminDashboard from '@/components/AdminDashboard';
+import { useApp } from '@/context/AppContext';
 
 export default function Home() {
+  const { isAdminOpen, setIsAdminOpen } = useApp();
   const [loading, setLoading] = useState(true);
   const [showBackToTop, setShowBackToTop] = useState(false);
 
@@ -176,6 +179,9 @@ export default function Home() {
 
             {/* Global Quick View Modal Overlay */}
             <QuickViewModal />
+
+            {/* Global Admin Dashboard Overlay */}
+            <AdminDashboard isOpen={isAdminOpen} onClose={() => setIsAdminOpen(false)} />
 
             {/* Floating Back-to-Top Button */}
             <AnimatePresence>

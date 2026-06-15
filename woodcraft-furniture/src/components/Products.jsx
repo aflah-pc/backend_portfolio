@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { useApp, productsData } from '@/context/AppContext';
+import { useApp } from '@/context/AppContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Heart, ShoppingBag, Eye, Star, SlidersHorizontal, RotateCcw, ChevronDown 
@@ -10,13 +10,13 @@ import {
 const Products = () => {
   const { 
     searchQuery, setSearchQuery, filters, setFilters, resetFilters,
-    addToCart, wishlist, toggleWishlist, setQuickViewProduct 
+    addToCart, wishlist, toggleWishlist, setQuickViewProduct, products
   } = useApp();
 
   const categories = ["All", "Sofas", "Beds", "Dining Sets", "Office Furniture", "Chairs", "Storage", "Outdoor Furniture"];
 
   // Filter and sort products
-  const filteredProducts = productsData.filter(product => {
+  const filteredProducts = products.filter(product => {
     // 1. Category Filter
     const matchesCategory = filters.category === "All" || product.category === filters.category;
     
