@@ -34,6 +34,9 @@ const Navbar = () => {
   // Calculate cart counts and totals
   const totalCartItems = cart.reduce((acc, item) => acc + item.quantity, 0);
   const cartSubtotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+  const shippingFee = cartSubtotal > 1000 ? 0 : 99;
+  const estimatedTax = Math.round(cartSubtotal * 0.08);
+  const totalBalance = cartSubtotal + shippingFee + estimatedTax;
 
   // Resolve products currently in wishlist
   const wishlistItems = productsData.filter(p => wishlist.includes(p.id));
@@ -297,18 +300,38 @@ const Navbar = () => {
 
               {/* Checkout Panel */}
               {cart.length > 0 && (
-                <div className="border-t border-brand-accent/20 pt-4 space-y-4">
-                  <div className="flex justify-between items-center text-sm font-medium">
-                    <span className="text-gray-500 dark:text-gray-400">Subtotal</span>
-                    <span className="text-brand-walnut dark:text-brand-beige font-bold text-lg">${cartSubtotal}</span>
+                <div className="border-t border-brand-accent/20 pt-4 space-y-3 bg-brand-cream/40 dark:bg-brand-walnut-dark/40 p-4 rounded-xl">
+                  <div className="flex justify-between items-center text-xs font-semibold text-gray-500 dark:text-gray-400">
+                    <span>Subtotal</span>
+                    <span className="text-brand-walnut dark:text-brand-beige">${cartSubtotal}</span>
                   </div>
+                  <div className="flex justify-between items-center text-xs font-semibold text-gray-500 dark:text-gray-400">
+                    <span>Shipping</span>
+                    <span className="text-brand-walnut dark:text-brand-beige">
+                      {shippingFee === 0 ? (
+                        <span className="text-green-600 dark:text-green-400 font-bold uppercase tracking-wider text-[10px]">Free</span>
+                      ) : (
+                        `$${shippingFee}`
+                      )}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center text-xs font-semibold text-gray-500 dark:text-gray-400">
+                    <span>Estimated Tax (8%)</span>
+                    <span className="text-brand-walnut dark:text-brand-beige">${estimatedTax}</span>
+                  </div>
+                  
+                  <div className="border-t border-brand-accent/10 pt-3 flex justify-between items-center text-sm font-bold">
+                    <span className="text-brand-walnut dark:text-brand-beige">Total Balance</span>
+                    <span className="text-brand-gold dark:text-brand-accent text-xl">${totalBalance}</span>
+                  </div>
+
                   <button 
                     onClick={() => {
-                      alert("Checkout integrated with secure premium payment systems!");
+                      alert(`Thank you for your purchase! Total balance of $${totalBalance} paid securely.`);
                       setCart([]);
                       setIsCartOpen(false);
                     }}
-                    className="w-full bg-brand-walnut dark:bg-brand-accent text-white dark:text-brand-walnut-dark py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 shadow-lg"
+                    className="w-full bg-brand-walnut dark:bg-brand-accent text-white dark:text-brand-walnut-dark py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 shadow-lg mt-2 cursor-pointer"
                   >
                     Proceed to Checkout <ArrowRight size={16} />
                   </button>
