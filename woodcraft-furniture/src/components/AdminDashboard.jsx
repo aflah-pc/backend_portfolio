@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 
-const AdminDashboard = ({ isOpen, onClose }) => {
+const AdminDashboard = ({ isOpen, onClose, isPage = false }) => {
   const { 
     products, fetchProducts, 
     orders, fetchOrders, 
@@ -105,42 +105,44 @@ const AdminDashboard = ({ isOpen, onClose }) => {
     }
   };
 
-  if (!isOpen) return null;
+  if (!isOpen && !isPage) return null;
 
   return (
-    <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-        {/* Backdrop */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.6 }}
-          exit={{ opacity: 0 }}
+    <div className={isPage ? "relative w-full min-h-screen bg-brand-cream dark:bg-brand-walnut-dark flex flex-col" : "fixed inset-0 z-50 flex items-center justify-center p-4"}>
+      {!isPage && (
+        <div 
           onClick={onClose}
-          className="fixed inset-0 bg-black/80 cursor-pointer"
+          className="fixed inset-0 bg-black/85 cursor-pointer"
         />
+      )}
 
-        {/* Modal Main Frame */}
-        <motion.div 
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0.9, opacity: 0 }}
-          className="relative w-full max-w-6xl h-[85vh] bg-brand-cream dark:bg-brand-walnut-dark rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-brand-accent/20"
-        >
-          {/* Header */}
-          <div className="p-6 border-b border-brand-accent/20 flex justify-between items-center bg-brand-walnut-dark text-white">
-            <div>
-              <h2 className="text-xl font-serif font-black tracking-wide uppercase">
-                PC RUBCO & <span className="text-brand-accent">INTERIORS Admin Control</span>
-              </h2>
-              <p className="text-[10px] tracking-widest text-brand-beige/75 uppercase">Showroom Inventory, Checkout Orders & Consultation Logs</p>
-            </div>
+      <div 
+        className={isPage 
+          ? "relative w-full min-h-screen flex flex-col bg-brand-cream dark:bg-brand-walnut-dark"
+          : "relative w-full max-w-6xl h-[85vh] bg-brand-cream dark:bg-brand-walnut-dark rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-brand-accent/20 z-10"
+        }
+      >
+        {/* Header */}
+        <div className="p-6 border-b border-brand-accent/20 flex justify-between items-center bg-brand-walnut-dark text-white">
+          <div>
+            <h2 className="text-xl font-serif font-black tracking-wide uppercase">
+              PC RUBCO & <span className="text-brand-accent">INTERIORS Admin Control</span>
+            </h2>
+            <p className="text-[10px] tracking-widest text-brand-beige/75 uppercase">Showroom Inventory, Checkout Orders & Consultation Logs</p>
+          </div>
+          {isPage ? (
+            <a href="/" className="px-4 py-2 bg-brand-accent hover:opacity-90 text-brand-walnut-dark font-bold text-xs rounded-xl transition-all">
+              Return to Showroom
+            </a>
+          ) : (
             <button 
               onClick={onClose}
               className="p-2 rounded-full hover:bg-white/10 text-brand-beige"
             >
               <X size={20} />
             </button>
-          </div>
+          )}
+        </div>
 
           {/* Sub Navigation Tabs */}
           <div className="flex bg-white/40 dark:bg-black/20 border-b border-brand-accent/10 px-6 py-2 gap-4">
@@ -332,7 +334,6 @@ const AdminDashboard = ({ isOpen, onClose }) => {
             )}
 
           </div>
-        </motion.div>
       </div>
 
       {/* Slide Form Panel Overlay */}
@@ -464,7 +465,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
           </motion.div>
         </div>
       )}
-    </AnimatePresence>
+    </div>
   );
 };
 
